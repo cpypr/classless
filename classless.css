@@ -1,0 +1,304 @@
+:root {
+  --bg: #ffffff;
+  --bg-secondary: #f8f9fa;
+  --text: #1a1a1a;
+  --text-muted: #555;
+  --border: #d1d1d1;
+  --input-bg: #ffffff;
+  --ruby: #e0115f;
+  --ruby-hover: #b00d4a;
+  --ruby-pink: #ff4d8d;
+  --font-size-base: clamp(1.125rem, 0.25vw + 1rem, 1.25rem);
+  --font-size-h1: clamp(2.5rem, 5vw + 1rem, 3.8rem);
+  --font-size-h2: clamp(2rem, 3vw + 1rem, 2.8rem);
+  --font-size-h3: clamp(1.5rem, 2vw + 1rem, 2rem);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #121212;
+    --bg-secondary: #1a1a1a;
+    --text: #f0f0f0;
+    --text-muted: #a0a0a0;
+    --border: #333;
+    --input-bg: #1e1e1e;
+  }
+}
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  line-height: 1.75;
+  font-family:
+    system-ui,
+    -apple-system,
+    sans-serif;
+  background-color: var(--bg);
+  color: var(--text);
+  font-size: var(--font-size-base);
+}
+
+main {
+  max-width: 850px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+header {
+  background-color: var(--bg-secondary);
+  background-image: radial-gradient(
+    circle at center,
+    rgba(224, 17, 95, 0.08) 0%,
+    transparent 70%
+  );
+  backdrop-filter: blur(10px);
+  padding: clamp(2rem, 6vw, 4rem) 1rem;
+  text-align: center;
+  border-bottom: 1px solid var(--border);
+}
+header h1 {
+  margin: 0;
+  line-height: 1.1;
+}
+header p {
+  font-size: 1.4rem;
+  color: var(--text-muted);
+  max-width: 700px;
+  margin: 1.2rem auto;
+  line-height: 1.4;
+}
+
+nav {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+}
+nav a {
+  text-decoration: none;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1rem;
+  font-size: 0.85rem;
+  color: var(--text);
+  padding: 0 0.2rem;
+  box-shadow: inset 0 -4px 0 0 transparent;
+  transition: all 0.25s ease;
+}
+nav a:hover {
+  color: var(--ruby);
+  box-shadow: inset 0 -8px 0 0 rgba(224, 17, 95, 0.2);
+}
+
+h1,
+h2,
+h3,
+h4 {
+  color: var(--text);
+  line-height: 1.2;
+  margin: 2.5rem 0 1rem;
+  font-weight: 800;
+}
+
+h1 {
+  font-size: var(--font-size-h1);
+}
+
+h2 {
+  font-size: var(--font-size-h2);
+}
+
+h3 {
+  font-size: var(--font-size-h3);
+}
+
+blockquote {
+  margin: 3rem 0;
+  padding: 1rem 2rem;
+  border-left: 5px solid var(--ruby);
+  background: var(--bg-secondary);
+  font-size: 1.2rem;
+}
+
+pre,
+code {
+  font-family: "Cascadia Code", "Fira Code", monospace;
+  font-weight: 500;
+  color: var(--ruby-pink);
+  background: var(--bg-secondary);
+  border-radius: 6px;
+}
+
+code {
+  padding: 0.2rem 0.4rem;
+}
+
+pre {
+  padding: 1.5rem;
+  overflow-x: auto;
+}
+
+hr {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 4rem 0;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 3rem 0;
+}
+table th {
+  text-align: left;
+  padding: 1rem;
+  box-shadow: inset 0 -6px 0 0 rgba(224, 17, 95, 0.2);
+  text-transform: uppercase;
+  letter-spacing: 0.05rem;
+  font-size: 0.85rem;
+}
+table td {
+  padding: 1rem;
+  border-bottom: 1px solid var(--border);
+  color: var(--text-muted);
+}
+table tr:hover td {
+  background-color: var(--bg-secondary);
+  color: var(--text);
+}
+
+div:has(> article:first-child) {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+article {
+  background: var(--bg-secondary);
+  padding: 1.5rem;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease;
+}
+article:hover {
+  border-color: var(--ruby);
+  transform: translateY(-4px);
+}
+article h3 {
+  margin-top: 0;
+  font-size: 1.3rem;
+}
+
+form {
+  display: grid;
+  gap: 2rem;
+  background: var(--bg-secondary);
+  padding: clamp(1.5rem, 5vw, 3rem);
+  border-radius: 16px;
+  /* Soft border for the container, but sharp logic for the inputs */
+  border: 1px solid var(--border);
+}
+form div {
+  display: flex;
+  flex-direction: column;
+}
+form label {
+  display: block;
+  font-weight: 800;
+  margin-bottom: 0.25rem;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05rem;
+  color: var(--text);
+}
+form input,
+form textarea,
+form select {
+  width: 100%;
+  padding: 0.8rem 0;
+  border: none;
+  /* The Fat Underline matching the Table/Nav style */
+  box-shadow: inset 0 -4px 0 0 var(--border);
+  background-color: transparent;
+  color: var(--text);
+  font-family: inherit;
+  font-size: 1.1rem;
+  border-radius: 0;
+  transition: all 0.25s ease;
+}
+form input:focus,
+form textarea:focus,
+form select:focus {
+  outline: none;
+  /* Fat underline expands and changes to Ruby on focus */
+  box-shadow: inset 0 -8px 0 0 rgba(224, 17, 95, 0.3);
+  background-color: rgba(224, 17, 95, 0.02);
+}
+form input::placeholder,
+form textarea::placeholder,
+form select::placeholder {
+  color: var(--text-muted);
+  opacity: 0.5;
+}
+form button {
+  margin-top: 1rem;
+  background-color: var(--ruby);
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.1rem;
+  cursor: pointer;
+  transition:
+    background 0.2s,
+    transform 0.1s;
+}
+form button:hover {
+  background-color: var(--ruby-hover);
+  transform: translateY(-2px);
+}
+form button:active {
+  transform: translateY(0);
+}
+
+footer {
+  text-align: center;
+  margin-top: 5rem;
+  padding-bottom: 3rem;
+}
+
+@media print {
+  body {
+    font-size: 12pt;
+    background: white;
+    color: black;
+  }
+  nav,
+  button,
+  form {
+    display: none !important;
+  }
+  header {
+    background: transparent !important;
+    border-bottom: 2px solid black;
+    text-align: left;
+  }
+  article {
+    border: none;
+    border-left: 2px solid #e0115f;
+    page-break-inside: avoid;
+  }
+}
+
+/*# sourceMappingURL=classless.css.map */
