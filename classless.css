@@ -12,6 +12,11 @@
   --font-size-h1: clamp(2.5rem, 5vw + 1rem, 3.8rem);
   --font-size-h2: clamp(2rem, 3vw + 1rem, 2.8rem);
   --font-size-h3: clamp(1.5rem, 2vw + 1rem, 2rem);
+  --radius: 0.75rem;
+  --spacing: 0.8rem;
+  --shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  --success-color: #2e7d32;
+  --error-color: #d32f2f;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -151,6 +156,13 @@ hr {
   margin: 4rem 0;
 }
 
+section > hr {
+  border: none;
+  border-top: 1px dashed var(--border);
+  margin: 4rem auto;
+  max-width: 100%;
+}
+
 table {
   width: 100%;
   border-collapse: collapse;
@@ -184,7 +196,7 @@ section div:has(> article) {
 section > div > article {
   background: var(--bg-secondary);
   padding: 1.5rem;
-  border-radius: 12px;
+  border-radius: var(--radius);
   border: 1px solid var(--border);
   transition: transform 0.2s ease, border-color 0.2s ease;
 }
@@ -193,73 +205,225 @@ section > div > article h3 {
   font-size: 1.3rem;
 }
 
-form {
-  display: grid;
-  gap: 2rem;
-  background: var(--bg-secondary);
-  padding: clamp(1.5rem, 5vw, 3rem);
-  border-radius: 16px;
-  border: 1px solid var(--border);
+/* Accessibility: High visibility focus */
+*:focus-visible {
+  outline: 3px solid var(--primary-color);
+  outline-offset: 2px;
 }
-form div {
+
+/* Global Form Styling */
+form {
   display: flex;
   flex-direction: column;
+  gap: 1.5rem;
 }
-form label {
-  display: block;
-  font-weight: 800;
-  margin-bottom: 0.25rem;
-  font-size: 0.85rem;
+
+/* Grouping related items */
+fieldset {
+  background-color: var(--bg-secondary);
+  border: 0;
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+legend {
+  font-weight: bold;
+  padding: 0 0.5rem;
+  color: var(--ruby);
+}
+
+/* Labels and Breathing Space */
+label {
   text-transform: uppercase;
   letter-spacing: 0.05rem;
-  color: var(--text);
+  font-size: 0.85rem;
+  display: block;
+  font-weight: 700;
+  margin: 0.4rem 0;
 }
-form input,
-form textarea,
-form select {
+
+/* Inputs (Text, Email, Password, Number, Tel, etc.) */
+input[type=text],
+input[type=email],
+input[type=password],
+input[type=number],
+input[type=tel],
+input[type=url],
+input[type=search],
+input[type=date],
+input[type=datetime-local],
+input[type=month],
+input[type=week],
+input[type=time],
+select,
+textarea {
   width: 100%;
-  padding: 0.8rem 0;
-  border: none;
-  box-shadow: inset 0 -4px 0 0 var(--border);
-  background-color: transparent;
-  color: var(--text);
+  padding: var(--spacing);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background-color: var(--input-bg);
   font-family: inherit;
-  font-size: 1.1rem;
-  border-radius: 0;
-  transition: all 0.25s ease;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  box-sizing: border-box;
 }
-form input:focus,
-form textarea:focus,
-form select:focus {
-  outline: none;
-  box-shadow: inset 0 -8px 0 0 rgba(224, 17, 95, 0.3);
-  background-color: rgba(224, 17, 95, 0.02);
+
+input:hover,
+select:hover,
+textarea:hover {
+  border-color: #bbb;
 }
-form input::placeholder,
-form textarea::placeholder,
-form select::placeholder {
-  color: var(--text-muted);
-  opacity: 0.5;
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: 3px solid var(--ruby-pink);
+  outline-offset: 1px;
+  border-color: transparent; /* Prevent the border and outline from clashing */
 }
-form button {
-  margin-top: 1rem;
+
+/* Specialized Inputs */
+input[type=range] {
+  width: 100%;
+  accent-color: var(--ruby);
+  cursor: pointer;
+  margin-bottom: 1rem;
+}
+
+input[type=color] {
+  height: 40px;
+  width: 60px;
+  padding: 2px;
+  cursor: pointer;
+  margin-bottom: 1rem;
+}
+
+/* Checkboxes & Radios */
+input[type=checkbox],
+input[type=radio] {
+  accent-color: var(--ruby);
+  transform: scale(1.1);
+  margin-right: 0.5rem;
+  cursor: pointer;
+  margin-bottom: 1rem;
+}
+
+/* Buttons */
+button,
+input[type=submit],
+input[type=button],
+input[type=reset] {
   background-color: var(--ruby);
   color: white;
+  padding: 0.8rem 1.5rem;
   border: none;
-  padding: 1rem 2rem;
-  border-radius: 10px;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 0.1rem;
+  border-radius: var(--radius);
+  font-weight: bold;
   cursor: pointer;
   transition: background 0.2s, transform 0.1s;
+  box-shadow: var(--shadow);
 }
-form button:hover {
+
+button:hover,
+input[type=submit]:hover {
   background-color: var(--ruby-hover);
-  transform: translateY(-2px);
 }
-form button:active {
-  transform: translateY(0);
+
+button:active {
+  transform: translateY(1px);
+}
+
+/* Only apply padding and icons to fields with requirements */
+input:is([required],
+[pattern],
+[minlength],
+[maxlength],
+[type=email],
+[type=url]),
+textarea:is([required], [minlength], [maxlength]) {
+  padding-right: 2.5rem;
+  background-repeat: no-repeat;
+  background-position: right 0.8rem center;
+  background-size: 1.1rem;
+}
+
+/* VALID: Only if required/constrained AND not empty */
+input:is([required],
+[pattern],
+[minlength],
+[maxlength],
+[type=email],
+[type=url]):not(:placeholder-shown):valid,
+textarea:is([required], [minlength]):not(:placeholder-shown):valid {
+  border: 2px solid var(--success-color);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%232e7d32' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E");
+}
+
+/* INVALID: Only if required/constrained AND not empty */
+input:is([required],
+[pattern],
+[minlength],
+[maxlength],
+[type=email],
+[type=url]):not(:placeholder-shown):invalid,
+textarea:is([required], [minlength]):not(:placeholder-shown):invalid {
+  border: 2px solid var(--error-color);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23d32f2f' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='10'%3E%3C/circle%3E%3Cline x1='12' y1='8' x2='12' y2='12'%3E%3C/line%3E%3Cline x1='12' y1='16' x2='12.01' y2='16'%3E%3C/line%3E%3C/svg%3E");
+}
+
+/* 4. Show the error message only for these specific fields */
+input:invalid:not(:placeholder-shown) + small,
+textarea:invalid:not(:placeholder-shown) + small {
+  /* margin-top: -0.8rem; */
+  display: block;
+  color: var(--error-color);
+}
+
+/* General spacing for helper text small tags */
+fieldset > small {
+  display: none;
+  margin-bottom: 1rem;
+}
+
+/* Target the Search Input specifically */
+input[type=search] {
+  border-radius: 50px;
+  padding-left: 2.5rem;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='11' cy='11' r='8'%3E%3C/circle%3E%3Cline x1='21' y1='21' x2='16.65' y2='16.65'%3E%3C/line%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: 0.8rem center;
+  background-size: 1.1rem;
+}
+
+/* Clear button (the 'X' in search fields) styling for Webkit browsers */
+input[type=search]::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+  height: 1em;
+  width: 1em;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23999' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cline x1='18' y1='6' x2='6' y2='18'%3E%3C/line%3E%3Cline x1='6' y1='6' x2='18' y2='18'%3E%3C/line%3E%3C/svg%3E") no-repeat center;
+  cursor: pointer;
+  margin-right: 0.5rem;
+}
+
+/* Style for a search-specific form layout */
+form[role=search] {
+  display: flex;
+  flex-direction: row; /* Horizontal layout for search */
+  align-items: center;
+  gap: 0.5rem;
+  max-width: 100%;
+}
+
+form[role=search] input[type=search] {
+  margin: 0;
+  flex-grow: 1;
+}
+
+form[role=search] button {
+  border-radius: 50px;
+  padding: 0.8rem 1.5rem;
 }
 
 footer {
