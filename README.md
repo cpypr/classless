@@ -1,3 +1,7 @@
+> [!IMPORTANT]
+> This repository is currently under active development
+
+
 # Ruby Red Framework
 A minimalist, drop-in CSS "framework" that makes HTML look professional without a single class.
 
@@ -9,6 +13,13 @@ A minimalist, drop-in CSS "framework" that makes HTML look professional without 
 - Responsive by Default: Looks great on mobile, tablet, and desktop.
 - Dark Mode Support: Automatically switches themes based on system preferences.
 - Typography Focused: Designed for readability with a clean, system-font stack.
+
+## Why another one?
+While there are many excellent classless stylesheets available, this personal project isn't meant to compete. Instead, it serves four specific goals:
+- Creating a "unique" visual identity.
+- Keeping pace with the latest language developments and features.
+- Staying truly classless by relying strictly on native HTML elements.
+- Ensuring full A11y compliance for an inclusive user experience.
 
 ## Getting Started
 
